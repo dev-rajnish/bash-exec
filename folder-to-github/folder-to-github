@@ -7,6 +7,8 @@ USER="$USER_NAME_CONFIG"
 
 GH_REPO_LINK="https://github.com/$USER/$REPO_NAME.git"
 
+echo https://github.com/$USER/$REPO_NAME.git
+
 VISIBILITY="--public"
 
 git status 2>/dev/null
