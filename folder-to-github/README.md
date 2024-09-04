@@ -1,6 +1,6 @@
 ### copy the code to Install
 ```
-curl -sSL https://raw.githubusercontent.com/dev-rajnish/bash-exec/master/folder-to-github/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/dev-rajnish/bash-exec/master/folder-to-github/install.sh | bash -s <your-github-username>
 ```
 
 ### for un-installing copy 
