@@ -1,0 +1,37 @@
+#!/bin/bash
+
+#log file location
+LOG_FILE="$HOME/my/log/pkg-installation-history.log"
+PKG_LIST="$HOME/my/log/pkg-list.txt"
+GIT_REPO_DIR="$HOME/my/auto-repo"
+
+#is pkg logged
+is_pkg_logged() {
+    local pkg="$1"
+    grep -q "Installed: $pkg" "$LOG_FILE"
+}
+
+#function to log the installation
+log_removal() {
+    for pkg in "$@"; do
+        sed -i "/Installed: $pkg/d" "$LOG_FILE"
+        sed -i "/$pkg/d" "$PKG_LIST"
+        echo -e "\n -->> Removed: $pkg\n"
+    done
+}
+
+#Automatic git commit push
+github_auto() {
+    cp "$PKG_LIST" -t "$GIT_REPO_DIR"
+    cd "$GIT_REPO_DIR" || echo "$GIT_REPO_DIR NOT FOUND!! "
+   echo "\n -->> Github push started\n"
+    git add "pkg-list.txt"
+    git commit -m "updated Removed: $pkg"
+    echo -e "\n -->> updated Removed: $pkg\n"
+    echo -e "\n -->> Running : git push\n"
+    git push
+    echo -e "\n -->> Completed : git push\n"
+
+}
+
+sudo zypper rm "$@" && log_removal "$@" && github_auto && echo -e "\n -->> Everyting Completed Succesfully !!!"

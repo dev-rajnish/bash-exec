@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    # If $1 is not provided, read input from user
+    read -p "Question :-  " userInput
+else
+    # If $1 is provided, use its value
+    userInput="$@"
+    echo Qusetion :- $userInput
+fi
+echo -e "\nCLAUDE AI :-  "
+►tgpt --provider=duckduckgo --model=claude-3-haiku-20240307 -q "$userInput" | glow

@@ -1,0 +1,53 @@
+#!/bin/bash
+source "$HOME/.config/f2g/f2g.conf"
+
+REPO_NAME="$(basename "$PWD")"
+
+USER="$USER_NAME_CONFIG"
+
+GH_REPO_LINK="https://github.com/$USER/$REPO_NAME.git"
+
+VISIBILITY="--public"
+
+git status 2>/dev/null
+
+echo -e "\nCTRL + C to cancel\n"
+
+read -p "Want to create Repo in github y/n : " opt
+
+case $opt in
+y | Y | yes | YES)
+
+    gh repo create "$REPO_NAME" "${2:-$VISIBILITY}" 2>/dev/null
+    echo -e "\n----->>> repo created ${2:-$VISIBILITY} in github <<<-----\n"
+    ;;
+
+*) echo "Proceeding Without repo Creation at github" ;;
+
+esac
+
+if [ ! -d ".git" ]; then
+    git init
+fi
+
+git checkout -b master 2>/dev/null || git checkout master 2>/dev/null
+
+git add "${1:--u}" && git status
+
+echo -e "\n----->>> ${1:-Only Modified is being pushed} <<<-----\n"
+
+read -p "commit message :  " commitMsg
+
+git commit -m "$commitMsg"
+
+git remote add origin "$GH_REPO_LINK" 2>/dev/null
+
+# force push
+read -p "Want to push Repo in github y/n : " opt
+
+case $opt in
+y | Y | yes | YES)
+    git push --force -u origin master
+    ;;
+*) echo change committed but code not pushed to github ;;
+esac
