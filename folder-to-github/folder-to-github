@@ -7,7 +7,7 @@ USER="$USER_NAME_CONFIG"
 
 GH_REPO_LINK="https://github.com/$USER/$REPO_NAME.git"
 
-echo https://github.com/$USER/$REPO_NAME.git
+echo $GH_REPO_LINK
 
 VISIBILITY="--public"
 
@@ -49,7 +49,7 @@ read -p "Want to push Repo in github y/n : " opt
 
 case $opt in
 y | Y | yes | YES)
-    git push --force -u origin master
+    git push
     ;;
 *) echo change committed but code not pushed to github ;;
 esac
