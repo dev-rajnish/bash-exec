@@ -7,7 +7,7 @@ CONFIGfile="$CONFIGdir/f2g.conf"
 
 #sudo zypper --no-gpg-checks --no-refresh in --allow-unsigned-rpm --no-recommends -y -l  -n  gh
 
-curl -s -w "\n" -o $BIN_FILE https://raw.githubusercontent.com/dev-rajnish/bash-exec/master/f2g/folder-to-github && sync || echo Download failed!
+curl  -o $BIN_FILE https://raw.githubusercontent.com/dev-rajnish/bash-exec/master/folder-to-github/folder-to-github  || echo Download failed!
 chmod +x $BIN_FILE
 
 echo Installed f2g at $USR_BIN_DIR
@@ -16,7 +16,7 @@ mkdir -p $CONFIGdir
 
 if [ ! -f "$CONFIGfile" ]; then 
 
-    curl -s -w "\n" -o $CONFIGfile https://raw.githubusercontent.com/dev-rajnish/bash-exec/master/f2g/f2g.cfg && sync || echo Download failed!
+    curl  -o $CONFIGfile https://raw.githubusercontent.com/dev-rajnish/bash-exec/master/folder-to-github/f2g.cfg || echo Download failed!
  
 fi 
 
