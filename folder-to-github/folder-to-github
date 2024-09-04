@@ -36,7 +36,7 @@ git checkout -b master 2>/dev/null || git checkout master 2>/dev/null
 
 git add "${1:--u}" && git status
 
-echo -e "\n----->>> ${1:-Only Modified is being pushed} <<<-----\n"
+echo -e "\n----->>> ${1:-Only Modified Added } <<<-----\n"
 
 read -p "commit message :  " commitMsg
 
