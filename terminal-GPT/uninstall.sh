@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rm -f $HOME/.local/bin/{tgpt,ai,run,bbxai,claudeai,metaai,mixai,openai}
+rm -f -v  $HOME/.local/bin/{tgpt,ai,run,bbxai,claudeai,metaai,mixai,openai}
