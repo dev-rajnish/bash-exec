@@ -1,5 +1,8 @@
 #!/bin/bash
-curl -sSL https://raw.githubusercontent.com/aandrew-me/tgpt/main/install | bash -s ~/.local/bin
+
+if [ ! -f "$HOME/.local/bin/tgpt" ]; then
+    curl -sSL https://raw.githubusercontent.com/aandrew-me/tgpt/main/install | bash -s $HOME/.local/bin
+fi
 
 curl -o $HOME/.local/bin/ai https://raw.githubusercontent.com/dev-rajnish/bash-exec/master/terminal-GPT/ai
 
@@ -19,9 +22,8 @@ curl -o $HOME/.local/bin/openai https://raw.githubusercontent.com/dev-rajnish/ba
 chmod +x $HOME/.local/bin/{ai,run,bbxai,claudeai,metaai,mixai,openai}
 echo installed $HOME/.local/bin/{ai,run,bbxai,claudeai,metaai,mixai,openai}
 
-mkdir -p $HOME/glow-pkg
-
 if [ ! -f "$HOME/glow-pkg/glow-2.0.0-1.x86_64.rpm" ]; then
+    mkdir -p $HOME/glow-pkg
     curl -o $HOME/glow-pkg/glow-2.0.0-1.x86_64.rpm https://raw.githubusercontent.com/dev-rajnish/bash-exec/master/terminal-GPT/glow-2.0.0-1.x86_64.rpm
     sudo zypper --no-gpg-checks --no-refresh in --allow-unsigned-rpm --no-recommends -y -l -n $HOME/glow-pkg/glow-2.0.0-1.x86_64.rpm
 fi
