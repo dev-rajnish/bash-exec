@@ -9,6 +9,7 @@ curl -sSL https://raw.githubusercontent.com/dev-rajnish/bash-exec/master/folder-
 curl -sSL https://raw.githubusercontent.com/dev-rajnish/bash-exec/master/folder-to-github/uninstall.sh | bash
 ```
 ## Install Requirements
+
 - install gh (Githb cli)
 
 ### First Run
