@@ -17,20 +17,21 @@ echo -e "\nCTRL + C to cancel\n"
 
 if [ ! -d ".git" ]; then
 
-    read -p "Want to create Repo in github y/n : " opt
+  read -p "Want to create Repo in github y/n : " opt
 
-    case $opt in
-    y | Y | yes | YES)
+   case $opt in
+     y | Y | yes | YES)
 
-        gh repo create "$REPO_NAME" "${2:-$VISIBILITY}" 2>/dev/null
-        echo -e "\n----->>> repo created ${2:-$VISIBILITY} in github <<<-----\n"
-        ;;
+       gh repo create "$REPO_NAME" "${2:-$VISIBILITY}" 2>/dev/null
+       echo -e "\n----->>> repo created ${2:-$VISIBILITY} in github <<<-----\n"
+       ;;
 
-    *) echo "Proceeding Without repo Creation at github" ;;
+     *) echo "Proceeding Without repo Creation at github" ;;
 
     esac
 
-    git init
+  git init
+
 fi
 
 git checkout -b master 2>/dev/null || git checkout master 2>/dev/null
