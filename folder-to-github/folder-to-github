@@ -11,22 +11,22 @@ echo $GH_REPO_LINK
 
 VISIBILITY="--public"
 
-git status 2>/dev/null
+git status -sbv 2>/dev/null
 
 echo -e "\nCTRL + C to cancel\n"
 
 if [ ! -d ".git" ]; then
 
-  read -p "Want to create Repo in github y/n : " opt
+  read -p "Do you want to create this folder Repo in Github y/n : " opt
 
    case $opt in
      y | Y | yes | YES)
 
        gh repo create "$REPO_NAME" "${2:-$VISIBILITY}" 2>/dev/null
-       echo -e "\n----->>> repo created ${2:-$VISIBILITY} in github <<<-----\n"
+       echo -e "\n----->>> Repo created ${2:-$VISIBILITY}ly in Github <<<-----\n"
        ;;
 
-     *) echo "Proceeding Without repo Creation at github" ;;
+     *) echo "Proceeding without repo Creation at Github" ;;
 
     esac
 
@@ -36,22 +36,22 @@ fi
 
 git checkout -b master 2>/dev/null || git checkout master 2>/dev/null
 
-git add "${1:--u}" && git status
+git add "${1:--u}" && git status 
 
 echo -e "\n----->>> ${1:-Only Modified Added } <<<-----\n"
 
-read -p "commit message :  " commitMsg
+read -p "Commit message :  " commitMsg
 
 git commit -m "$commitMsg"
 
 git remote add origin "$GH_REPO_LINK" 2>/dev/null
 
 # force push
-read -p "Want to push Repo in github y/n : " opt
+read -p "Do Want to push Repo to Github y/n : " opt
 
 case $opt in
 y | Y | yes | YES)
     git push -u origin master  || git push --force 
     ;;
-*) echo change committed but code not pushed to github ;;
+*) echo Changes committed but code not pushed to Github ;;
 esac

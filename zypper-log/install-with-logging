@@ -1,11 +1,12 @@
 #!/bin/bash
 
-#log file location
+#.log file location
 LOG_FILE="$HOME/my/log/pkg-installation-history.log"
 PKG_LIST="$HOME/my/log/pkg-list.txt"
+PKG_LIST_ZYPPER="$HOME/my/bash-exec/zypper-log/pkg-list.txt"
 GIT_REPO_DIR="$HOME/my/auto-repo"
 
-#is pkg logged
+#.is pkg logged
 is_pkg_logged() {
     local pkg="$1"
     grep -q "Installed: $pkg" "$LOG_FILE"
@@ -15,9 +16,10 @@ is_pkg_logged() {
 log_installation() {
     for pkg in "$@"; do
         if ! is_pkg_logged "$pkg"; then
-            echo "$(date '+%Y-%m-%d %H:%M:%S') - Installed: $pkg" >>"$LOG_FILE"
+            echo "$(date '+%Y-%m-%d %H:%M:%S') - Installed: $pkg" >> "$LOG_FILE"
             echo -e "\n -->> $(date '+%Y-%m-%d %H:%M:%S') - Installed: $pkg\n"
-            echo "$pkg" >>"$PKG_LIST"
+            echo "$pkg" >> "$PKG_LIST"
+            cp $PKG_LIST $PKG_LIST_ZYPPER
         fi
     done
 }
@@ -25,7 +27,7 @@ log_installation() {
 #Automatic git commit push
 github_auto() {
     cp "$PKG_LIST" -t "$GIT_REPO_DIR"
-    echo "\n -->> Github push started\n"
+    echo -e "\n -->> Github push started\n"
     cd "$GIT_REPO_DIR" || echo "$GIT_REPO_DIR NOT FOUND!! "
     git add "pkg-list.txt"
     git commit -m "updated installed: $pkg"
@@ -36,4 +38,8 @@ github_auto() {
 
 }
 
-sudo zypper in --no-recommends "$@" && log_installation "$@" && github_auto && echo -e "\n -->> Everyting Completed Succesfully !!!"
+sudo zypper in --no-recommends "$@" && \
+log_installation "$@" && \
+github_auto && \
+echo -e "\n -->> Everyting Completed Succesfully !!!" || \
+echo -e "\n Pkg not updated"

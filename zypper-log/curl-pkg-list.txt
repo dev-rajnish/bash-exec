@@ -1,0 +1,6 @@
+curl -sSL https://raw.githubusercontent.com/dev-rajnish/bash-exec/master/folder-to-github/install.sh | bash -s dev-rajnish
+
+curl -sS https://starship.rs/install.sh | sh
+
+curl -L https://raw.githubusercontent.com/dev-rajnish/bash-exec/master/terminal-GPT/install.sh | bash
+

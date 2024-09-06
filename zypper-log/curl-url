@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Check if the log file exists, create it if not
+mkdir -p "$HOME/my/bash-exec/zypper-log"
+touch "$HOME/my/bash-exec/zypper-log/curl-pkg-list.txt"
+
+# Take all arguments
+
+if [ -z "$1" ]; then
+    # If $1 is not provided, read input from user
+    read -p "Cmd :-  " curl_cmd
+    LINK="$curl_cmd"
+else
+ LINK="$@"
+fi
+# Check if link is logged or not
+if ! grep -F "$LINK" "$HOME/my/bash-exec/zypper-log/curl-pkg-list.txt"; then
+ echo -e "$LINK\n" >> "$HOME/my/bash-exec/zypper-log/curl-pkg-list.txt"
+ echo ">> Link logged successfully."
+else
+ echo ">> Link already existed in $HOME/my/bash-exec/zypper-log/curl-pkg-list.txt"
+fi
+
+cd
+touch curl-in.sh
+echo "$LINK" > curl-in.sh && chmod +x curl-in.sh
+
+./curl-in.sh
+
+rm -f curl-in.sh
+cd -

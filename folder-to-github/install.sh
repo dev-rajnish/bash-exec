@@ -10,24 +10,24 @@ CONFIGfile="$CONFIGdir/f2g.conf"
 curl  -o $BIN_FILE https://raw.githubusercontent.com/dev-rajnish/bash-exec/master/folder-to-github/folder-to-github  || echo Download failed!
 chmod +x $BIN_FILE
 
-echo Installed f2g at $USR_BIN_DIR
+echo ":: >> Installed f2g at $USR_BIN_DIR"
 
 mkdir -p $CONFIGdir
 
 if [ ! -f "$CONFIGfile" ]; then 
 
-    curl  -o $CONFIGfile https://raw.githubusercontent.com/dev-rajnish/bash-exec/master/folder-to-github/f2g.cfg || echo Download failed!
+    curl  -o $CONFIGfile https://raw.githubusercontent.com/dev-rajnish/bash-exec/master/folder-to-github/f2g.cfg || echo Config Download failed!
  
 fi 
 
 
 
 # Check if the username was read correctly
-echo "You entered: $1"
+echo ":: >> You entered your UserName is : $1"
 
 # Safeguard: If the username wasn't entered, notify and exit
 if [ -z "$1" ]; then
-    echo "No username entered. Add it at $CONFIGfile"
+    echo ":: >> No username entered. Add it at $CONFIGfile"
 fi
 
 # Append or modify the USER_NAME_CONFIG line in the configuration file
@@ -39,11 +39,11 @@ else
     echo "USER_NAME_CONFIG=\"$1\"" >> "$CONFIGfile"
 fi
 
-echo -e "\nAdded your user name in $CONFIGfile\n"
+echo -e "\nAdded your username in $CONFIGfile\n"
 
-echo -e "run f2g to push modified change \n"
+echo -e ":: >> Run " f2g " to push modified change \n"
 
-echo -e "Run : f2g . for add files and push all\n"
+echo -e ":: >> Run " f2g . " for add files and push all \n"
 
-echo -e "Install gh if not installed\n"
+echo -e "Install gh if not installed \n"
 

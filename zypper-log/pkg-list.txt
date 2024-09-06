@@ -1,0 +1,17 @@
+fish
+bat
+gparted
+htop
+calibre
+eza
+nodejs
+glow
+cloudflared
+gh
+gh-fish-completion
+rpm-build
+zoxide
+hello
+fzf
+neovim
+yarn
