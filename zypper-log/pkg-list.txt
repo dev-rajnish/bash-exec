@@ -15,3 +15,8 @@ hello
 fzf
 neovim
 yarn
+bat-extras
+dust
+fd
+lsd
+lazygit
