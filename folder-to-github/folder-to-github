@@ -1,9 +1,8 @@
 #!/bin/bash
-source "$HOME/.config/f2g/f2g.conf"
 
 REPO_NAME="$(basename "$PWD")"
 
-USER="$USER_NAME_CONFIG"
+USER=git config --get user.name
 
 GH_REPO_LINK="https://github.com/$USER/$REPO_NAME.git"
 
@@ -15,30 +14,26 @@ git status -sbv 2>/dev/null
 
 echo -e "\nCTRL + C to cancel\n"
 
-if [ ! -d ".git" ]; then
-
-  read -p "Do you want to create this folder Repo in Github y/n : " opt
+read -p "Do you want to create this folder Repo in Github y/n : " opt
 
    case $opt in
      y | Y | yes | YES)
 
        gh repo create "$REPO_NAME" "${2:-$VISIBILITY}" 2>/dev/null
-       echo -e "\n----->>> Repo created ${2:-$VISIBILITY}ly in Github <<<-----\n"
+       echo -e "\n :::::: Repo created ${2:-$VISIBILITY}ly in Github ::::::\n"
        ;;
 
      *) echo "Proceeding without repo Creation at Github" ;;
 
     esac
 
-  git init
-
-fi
+git init 2>/dev/null
 
 git checkout -b master 2>/dev/null || git checkout master 2>/dev/null
 
-git add "${1:--u}" && git status 
+git add "${1:--u}" && git status -sbv
 
-echo -e "\n----->>> ${1:-Only Modified Added } <<<-----\n"
+echo -e "\n :::::: ${1:-Only Modified Added } ::::::\n"
 
 read -p "Commit message :  " commitMsg
 
@@ -46,12 +41,6 @@ git commit -m "$commitMsg"
 
 git remote add origin "$GH_REPO_LINK" 2>/dev/null
 
-# force push
-read -p "Do Want to push Repo to Github y/n : " opt
+git push -u origin master  || git push --force -u origin master
 
-case $opt in
-y | Y | yes | YES)
-    git push -u origin master  || git push --force 
-    ;;
-*) echo Changes committed but code not pushed to Github ;;
-esac
+echo Changes committed but code not pushed to Github
