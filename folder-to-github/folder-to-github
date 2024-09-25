@@ -41,6 +41,6 @@ git commit -m "$commitMsg"
 
 git remote add origin "$GH_REPO_LINK" 2>/dev/null
 
-git push -u origin master  || git push --force -u origin master
-
-echo Changes committed but code not pushed to Github
+git push -u origin master  \
+|| git push --force -u origin master \
+|| echo Changes committed but code not pushed to Github
